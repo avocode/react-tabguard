@@ -5,6 +5,12 @@ TabGuard = React.createFactory(require '../src/')
 module.exports = React.createClass
   displayName: 'App'
 
+  getInitialState: ->
+    isHidden: false
+
+  _handleClick: ->
+    @setState(isHidden: true)
+
   render: ->
     div null,
 
@@ -13,10 +19,11 @@ module.exports = React.createClass
       TabGuard null,
         div null,
 
-          fieldset null,
-            input
-              type: 'text'
-              placeholder: 'Your name'
+          unless @state.isHidden
+            fieldset null,
+              input
+                type: 'text'
+                placeholder: 'Your name'
 
           fieldset null,
             input
@@ -28,7 +35,7 @@ module.exports = React.createClass
               placeholder: 'Additional info'
 
           fieldset null,
-            button null,
+            button onClick: @_handleClick,
               'Send'
 
       h1 null, 'Second form'

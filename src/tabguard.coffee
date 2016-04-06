@@ -1,7 +1,5 @@
 React = require 'react'
 ReactDOM = require 'react-dom'
-arrayFrom = require 'array-from'
-partialRight = require 'lodash.partialright'
 
 focusableElementsList = [
   'a[href]'
@@ -27,15 +25,11 @@ TabGuard = React.createClass
   componentDidUpdate: ->
     @_registerTabGuard()
 
-  componentWillReceiveProps: ->
+  componentWillUpdate: ->
     @_removeListeners()
 
   componentWillUnmount: ->
     @_removeListeners()
-
-  _firstElementListener: null
-
-  _lastElementListener: null
 
   _firstElement: null
 
@@ -44,33 +38,31 @@ TabGuard = React.createClass
   _registerTabGuard: ->
     parentNode = ReactDOM.findDOMNode(this)
 
-    nodeList = parentNode.querySelectorAll(focusableElementsSelector)
-    focusableElements = arrayFrom(nodeList)
+    focusableElements = parentNode.querySelectorAll(focusableElementsSelector)
     @_firstElement = focusableElements[0]
     @_lastElement = focusableElements[focusableElements.length - 1]
 
-    @_firstElementListener = partialRight @_handleKeyDown,
-      element: @_lastElement
-      isShiftKeyRequired: true
+    @_firstElement.addEventListener 'keydown', @_handleFirstElement
+    @_lastElement.addEventListener 'keydown', @_handleLastElement
 
-    @_lastElementListener = partialRight @_handleKeyDown,
-      element: @_firstElement
-      isShiftKeyRequired: false
-
-    @_firstElement.addEventListener 'keydown', @_firstElementListener
-    @_lastElement.addEventListener 'keydown', @_lastElementListener
-
-  _handleKeyDown: (event, options = {}) ->
+  _isTabKeyEvent: (event) ->
     tabCharCode = 9
-    { isShiftKeyRequired, element } = options
+    result = if event.keyCode is tabCharCode then true else false
+    return result
 
-    if event.keyCode is tabCharCode and event.shiftKey is isShiftKeyRequired
+  _handleFirstElement: (event) ->
+    if event.shiftKey and @_isTabKeyEvent(event)
       event.preventDefault()
-      element.focus()
+      @_lastElement.focus()
+
+  _handleLastElement: (event) ->
+    if not event.shiftKey and @_isTabKeyEvent(event)
+      event.preventDefault()
+      @_firstElement.focus()
 
   _removeListeners: ->
-    @_firstElement.removeEventListener 'keydown', @_firstElementListener
-    @_lastElement.removeEventListener 'keydown', @_lastElementListener
+    @_firstElement.removeEventListener 'keydown', @_handleFirstElement
+    @_lastElement.removeEventListener 'keydown', @_handleLastElement
 
   render: ->
     @props.children

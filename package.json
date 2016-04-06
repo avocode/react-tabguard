@@ -21,11 +21,6 @@
     "test": "mocha && istanbul report text-summary lcov",
     "fast-test": "mocha"
   },
-  "dependencies": {
-    "array-from": "^2.0.2",
-    "invariant": "^2.2.1",
-    "lodash.partialright": "^4.1.3"
-  },
   "peerDependencies": {
     "react": "^0.14.8",
     "react-dom": "^0.14.8"
