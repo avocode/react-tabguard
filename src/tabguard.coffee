@@ -1,5 +1,6 @@
 React = require 'react'
 ReactDOM = require 'react-dom'
+arrayFrom = require 'array-from'
 
 focusableElementsList = [
   'a[href]'
@@ -38,7 +39,9 @@ TabGuard = React.createClass
   _registerTabGuard: ->
     parentNode = ReactDOM.findDOMNode(this)
 
-    focusableElements = parentNode.querySelectorAll(focusableElementsSelector)
+    elements = arrayFrom(parentNode.querySelectorAll(focusableElementsSelector))
+    focusableElements = elements.filter(@_filterFocusableElements)
+
     @_firstElement = focusableElements[0]
     @_lastElement = focusableElements[focusableElements.length - 1]
 
@@ -49,6 +52,13 @@ TabGuard = React.createClass
     tabCharCode = 9
     result = if event.keyCode is tabCharCode then true else false
     return result
+
+  _filterFocusableElements: (element) ->
+    isVisible = element.style.display isnt 'none' and
+      element.style.visibility isnt 'hidden'
+    isNonNegativeTabIndex = element.getAttribute('tabindex') isnt '-1'
+
+    return isVisible and isNonNegativeTabIndex
 
   _handleFirstElement: (event) ->
     if event.shiftKey and @_isTabKeyEvent(event)
