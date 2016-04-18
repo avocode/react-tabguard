@@ -18,6 +18,7 @@ There is no easy way to limit tabbing to a specified area inside your HMTL docum
 'use strict';
 
 let React = require('react');
+let TabGuard = require('react-tabguard');
 
 let App = React.createClass({
   render: function() {
