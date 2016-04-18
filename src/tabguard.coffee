@@ -2,6 +2,8 @@ React = require 'react'
 ReactDOM = require 'react-dom'
 arrayFrom = require 'array-from'
 
+tabGuard = React.createFactory 'tabguard'
+
 focusableElementsList = [
   'a[href]'
   'button:not([disabled])'
@@ -18,8 +20,10 @@ focusableElementsList = [
 
 focusableElementsSelector = focusableElementsList.join()
 
-
 TabGuard = React.createClass
+  propTypes:
+    className: React.PropTypes.string
+
   componentDidMount: ->
     @_registerTabGuard()
 
@@ -75,7 +79,9 @@ TabGuard = React.createClass
     @_lastElement.removeEventListener 'keydown', @_handleLastElement
 
   render: ->
-    @props.children
+    tabGuard
+      className: @props.className
+      children: @props.children
 
 
 module.exports = TabGuard
