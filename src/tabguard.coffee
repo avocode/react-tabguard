@@ -46,6 +46,10 @@ TabGuard = React.createClass
     elements = arrayFrom(parentNode.querySelectorAll(focusableElementsSelector))
     focusableElements = elements.filter(@_filterFocusableElements)
 
+    # NOTE: if there are not any focusable elements return null
+    if not focusableElements?.length
+      return null
+
     @_firstElement = focusableElements[0]
     @_lastElement = focusableElements[focusableElements.length - 1]
 
@@ -75,8 +79,8 @@ TabGuard = React.createClass
       @_firstElement.focus()
 
   _removeListeners: ->
-    @_firstElement.removeEventListener 'keydown', @_handleFirstElement
-    @_lastElement.removeEventListener 'keydown', @_handleLastElement
+    @_firstElement?.removeEventListener 'keydown', @_handleFirstElement
+    @_lastElement?.removeEventListener 'keydown', @_handleLastElement
 
   render: ->
     tabGuard
