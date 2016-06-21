@@ -21,6 +21,8 @@ focusableElementsList = [
 focusableElementsSelector = focusableElementsList.join()
 
 TabGuard = React.createClass
+  displayName: 'TabGuard'
+
   propTypes:
     className: React.PropTypes.string
 
