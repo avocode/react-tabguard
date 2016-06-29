@@ -22,8 +22,8 @@
     "fast-test": "mocha"
   },
   "peerDependencies": {
-    "react": "^0.14.8",
-    "react-dom": "^0.14.8"
+    "react": "^15.1.0",
+    "react-dom": "^15.1.0"
   },
   "repository": {
     "type": "git",
@@ -45,9 +45,9 @@
     "jsdom": "^8.3.0",
     "lodash": "^4.8.2",
     "mocha": "^2.2.5",
-    "react": "^0.14.8",
+    "react": "^15.1.0",
     "react-addons-test-utils": "^0.14.8",
-    "react-dom": "^0.14.8",
+    "react-dom": "^15.1.0",
     "webpack": "^1.11.0",
     "webpack-dev-server": "^1.10.1"
   },
