@@ -1,6 +1,8 @@
 React = require 'react'
 ReactDOM = require 'react-dom'
 arrayFrom = require 'array-from'
+PropTypes = require 'prop-types'
+createClass = require 'create-react-class'
 
 tabGuard = React.createFactory 'tabguard'
 
@@ -20,11 +22,11 @@ focusableElementsList = [
 
 focusableElementsSelector = focusableElementsList.join()
 
-TabGuard = React.createClass
+TabGuard = createClass
   displayName: 'TabGuard'
 
   propTypes:
-    className: React.PropTypes.string
+    className: PropTypes.string
 
   componentDidMount: ->
     @_registerTabGuard()
