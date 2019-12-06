@@ -1,8 +1,12 @@
+React = require 'react'
+ReactDOM = require 'react-dom-factories'
+createClass = require 'create-react-class'
+
 TabGuard = React.createFactory(require '../src/')
 
-{div, h1, p, input, button, select, option, textarea, a, fieldset} = React.DOM
+{div, h1, p, input, button, select, option, textarea, a, fieldset} = ReactDOM
 
-module.exports = React.createClass
+module.exports = createClass
   displayName: 'App'
 
   getInitialState: ->
