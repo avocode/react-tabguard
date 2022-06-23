@@ -41,7 +41,7 @@
     "coffee-script": "^1.9.3",
     "enzyme": "^2.2.0",
     "istanbul": "^0.4.2",
-    "jsdom": "^8.3.0",
+    "jsdom": "^16.5.0",
     "lodash": "^4.8.2",
     "mocha": "^2.2.5",
     "react": "^16.0.0",
